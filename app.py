@@ -8,7 +8,8 @@ pickle_in = open("model.pkl", "rb")
 classifier = pickle.load(pickle_in)
 
 # Function to make predictions
-def predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility):
+def predict_transmissibility(PERMX, PERMY, PERMZ, PORO): 
+
     """
     Predict the oil, gas, and water production based on input features.
     
@@ -17,12 +18,13 @@ def predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility):
     - PERMY: Permeability in Y direction
     - PERMZ: Permeability in Z direction
     - PORO: Porosity
-    - Transmissibility: Transmisibility value
     
     Returns:
-    - Prediction result (production level)
+    - Predicted Transmissibility value
     """
-    prediction = classifier.predict([[PERMX, PERMY, PERMZ, PORO, Transmissibility]])
+
+    input_features = np.array([[PERMX, PERMY, PERMZ, PORO]])
+    prediction = classifier.predict(input_features)
     return prediction
 
 # Main function to display the app interface
@@ -40,14 +42,19 @@ def main():
     PERMY = st.number_input("Permeability in Y direction (PERMY)", min_value=0.0, value=0.0, format="%.2f")
     PERMZ = st.number_input("Permeability in Z direction (PERMZ)", min_value=0.0, value=0.0, format="%.2f")
     PORO = st.number_input("Porosity (PORO)", min_value=0.0, max_value=1.0, value=0.0, format="%.2f")
-    Transmissibility = st.number_input("Transmissibility", min_value=0.0, value=0.0, format="%.2f")
     
     result = ""
     
     # Predict button
-    if st.button("Predict"):
-        result = predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility)
-        st.success(f'The predicted production level is: {result[0]}')
+    if st.button("Predict Transmissibility"):
+        # Validate inputs
+        if PERMX <= 0 or PERMY <= 0 or PERMZ <= 0:
+            st.error("Permeability values must be greater than 0.")
+        elif not (0.0 < PORO <= 1.0):
+            st.error("Porosity must be between 0 and 1.")
+        else:
+            result = predict_transmissibility(PERMX, PERMY, PERMZ, PORO)
+            st.success(f'The predicted Transmissibility is: {result[0]:.2f}')
     
     # About button
     if st.button("About"):
