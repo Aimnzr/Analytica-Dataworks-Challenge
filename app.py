@@ -8,7 +8,7 @@ pickle_in = open("model.pkl", "rb")
 classifier = pickle.load(pickle_in)
 
 # Function to make predictions
-def predict_production(PERMX, PERMY, PERMZ, PORO. Transmissibility):
+def predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility):
     """
     Predict the oil, gas, and water production based on input features.
     
