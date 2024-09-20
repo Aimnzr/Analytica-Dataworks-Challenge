@@ -22,7 +22,7 @@ def predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility):
     Returns:
     - Prediction result (production level)
     """
-    prediction = classifier.predict([[PERMX, PERMY, PERMZ, PORO, Transmissibility]])
+    prediction = classifier.predict([Transmissibility])
     return prediction
 
 # Main function to display the app interface
