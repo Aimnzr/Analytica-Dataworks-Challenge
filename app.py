@@ -8,7 +8,7 @@ pickle_in = open("model.pkl", "rb")
 classifier = pickle.load(pickle_in)
 
 # Function to make predictions
-def predict_production(PERMX, PERMY, PERMZ, PORO):
+def predict_production(PERMX, PERMY, PERMZ, PORO. Transmissibility):
     """
     Predict the oil, gas, and water production based on input features.
     
@@ -17,11 +17,12 @@ def predict_production(PERMX, PERMY, PERMZ, PORO):
     - PERMY: Permeability in Y direction
     - PERMZ: Permeability in Z direction
     - PORO: Porosity
+    - Transmissibility: Transmisibility value
     
     Returns:
     - Prediction result (production level)
     """
-    prediction = classifier.predict([[PERMX, PERMY, PERMZ, PORO]])
+    prediction = classifier.predict([[PERMX, PERMY, PERMZ, PORO, Transmissibility]])
     return prediction
 
 # Main function to display the app interface
@@ -39,12 +40,13 @@ def main():
     PERMY = st.number_input("Permeability in Y direction (PERMY)", min_value=0.0, value=0.0, format="%.2f")
     PERMZ = st.number_input("Permeability in Z direction (PERMZ)", min_value=0.0, value=0.0, format="%.2f")
     PORO = st.number_input("Porosity (PORO)", min_value=0.0, max_value=1.0, value=0.0, format="%.2f")
+    Transmissibility = st.number_input("Transmissibility", min_value=0.0, value=0.0, format="%.2f")
     
     result = ""
     
     # Predict button
     if st.button("Predict"):
-        result = predict_production(PERMX, PERMY, PERMZ, PORO)
+        result = predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility)
         st.success(f'The predicted production level is: {result[0]}')
     
     # About button
