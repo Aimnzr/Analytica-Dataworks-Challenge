@@ -39,13 +39,12 @@ def main():
     PERMY = st.number_input("Permeability in Y direction (PERMY)", min_value=0.0, value=0.0, format="%.2f")
     PERMZ = st.number_input("Permeability in Z direction (PERMZ)", min_value=0.0, value=0.0, format="%.2f")
     PORO = st.number_input("Porosity (PORO)", min_value=0.0, max_value=1.0, value=0.0, format="%.2f")
-    Transmissibility = st.number_input("Transmissibility", min_value=0.0, value=0.0, format="%.2f")
     
     result = ""
     
     # Predict button
     if st.button("Predict"):
-        result = predict_production(PERMX, PERMY, PERMZ, PORO, Transmissibility)
+        result = predict_production(PERMX, PERMY, PERMZ, PORO)
         st.success(f'The predicted production level is: {result[0]}')
     
     # About button
