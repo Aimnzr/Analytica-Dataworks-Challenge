@@ -22,7 +22,7 @@ def predict_transmissibility(PERMX, PERMY, PERMZ, PORO):
     Returns:
     - Predicted Transmissibility value
     """
-
+# Predict outcomes of the reservoir
     input_features = np.array([[PERMX, PERMY, PERMZ, PORO]])
     prediction = classifier.predict(input_features)
     return prediction
